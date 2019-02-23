@@ -14,8 +14,12 @@ let playerTwoMoveOneValue,
 
 const PLAYER_ONE = 'Player One';
 const PLAYER_TWO = 'Player Two';
+const TIE = 'Tie';
+const ROCK = 'rock';
+const PAPER = 'paper';
+const SCISSORS = 'scissors';
 
-const VALID_MOVE_TYPES = ['rock', 'paper', 'scissors'];
+const VALID_MOVE_TYPES = [ROCK, PAPER, SCISSORS];
 
 const checkIfInputsValid = (
     moveOneType, 
@@ -122,5 +126,70 @@ const setPlayerMoves = (
         default:
             return;
     }
-    
+}
+
+const determineWinnerByMoves = (
+    playerOneMoveType,
+    playerOneMoveValue,
+    playerTwoMoveType,
+    playerTwoMoveValue
+) => {
+
+    if (
+        !playerOneMoveType ||
+        !playerOneMoveValue ||
+        !playerTwoMoveType ||
+        !playerTwoMoveValue 
+    ) {
+        return null;
+    }
+
+    if (playerOneMoveType !== playerTwoMoveType) {    
+        if (playerOneMoveType === ROCK && playerTwoMoveType === PAPER) {
+            return PLAYER_TWO;
+        } else if (playerOneMoveType === ROCK && playerTwoMoveType === SCISSORS) {
+            return PLAYER_ONE;
+        } else if (playerOneMoveType === PAPER && playerTwoMoveType === ROCK) {
+            return PLAYER_ONE;
+        } else if (playerOneMoveType === PAPER && playerTwoMoveType === SCISSORS) {
+            return PLAYER_TWO;
+        } else if (playerOneMoveType === SCISSORS && playerTwoMoveType === PAPER) {
+            return PLAYER_ONE;
+        } else {
+            return PLAYER_TWO;
+        }
+    } else if (playerOneMoveValue !== playerTwoMoveValue) {
+        return (playerOneMoveValue > playerTwoMoveValue)? PLAYER_ONE : PLAYER_TWO;
+    } else {
+        return TIE;
+    }
+}
+
+const getRoundWinner = (roundNumber) => {
+
+    switch(roundNumber) {
+        case 1:
+            return determineWinnerByMoves(
+                playerOneMoveOneType,
+                playerOneMoveOneValue,
+                playerTwoMoveOneType,
+                playerTwoMoveOneValue
+            );
+        case 2:
+            return determineWinnerByMoves(
+                playerOneMoveTwoType,
+                playerOneMoveTwoValue,
+                playerTwoMoveTwoType,
+                playerTwoMoveTwoValue
+            );
+        case 3:
+            return determineWinnerByMoves(
+                playerOneMoveThreeType,
+                playerOneMoveThreeValue,
+                playerTwoMoveThreeType,
+                playerTwoMoveThreeValue
+            );
+        default:
+            return null;
+    }
 }
