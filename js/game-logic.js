@@ -193,3 +193,34 @@ const getRoundWinner = (roundNumber) => {
             return null;
     }
 }
+
+const getGameWinner = () => {
+
+    let playerOneScore = 0;
+    let playerTwoScore = 0;
+
+    for(let i = 1; i <= 3; i++) {
+
+        const result = getRoundWinner(i);
+
+        switch(result) {
+            case PLAYER_ONE:
+                playerOneScore++;
+                break;
+            case PLAYER_TWO:
+                playerTwoScore++;
+                break;
+            case TIE:
+                break;
+            default: return null;
+        }
+    }
+
+    if (playerOneScore > playerTwoScore) {
+        return PLAYER_ONE;
+    } else if (playerOneScore < playerTwoScore) {
+        return PLAYER_TWO;
+    } else {
+        return TIE;
+    }
+}
