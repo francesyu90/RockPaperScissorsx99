@@ -224,3 +224,34 @@ const getGameWinner = () => {
         return TIE;
     }
 }
+
+const generateRandomNumber = (maxNumber) => {
+    return Math.floor((Math.random() * maxNumber) + 1);
+}
+
+const determineMoveType = () => {
+
+    const number = generateRandomNumber(3);
+
+    switch(number) {
+        case 1: 
+            return PAPER;
+        case 2:
+            return SCISSORS;
+        case 3:
+            return ROCK;
+        default:
+            return null;
+    }
+}
+
+const setComputerMoves = () => {
+
+    playerTwoMoveOneType = determineMoveType();
+    playerTwoMoveTwoType = determineMoveType();
+    playerTwoMoveThreeType = determineMoveType();
+
+    playerTwoMoveOneValue = generateRandomNumber(99);
+    playerTwoMoveTwoValue = generateRandomNumber(99 - playerTwoMoveOneValue);
+    playerTwoMoveThreeValue = 99 - playerTwoMoveOneValue - playerTwoMoveTwoValue;
+}
